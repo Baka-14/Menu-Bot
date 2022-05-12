@@ -47,11 +47,11 @@ meals={
     "SNACKS": 3,
 }
 
-TOKEN = 'OTY2NTAzMDM1Mzk0MTk5NTgy.GcTrMF.f2tajLqbtZHU1-9pJSZINfHNNMB7zeXS24cpQk'
+TOKEN = "LICK"
 menu = processEXCEL(df) 
 DAY = datetime.datetime.today().strftime('%A')
 bot = hikari.GatewayBot(TOKEN)
-channel_id = '952512991717384303'
+channel_id = "ASS"
 
 @bot.listen()
 async def on_message(event: hikari.MessageCreateEvent) -> None:
