@@ -1,100 +1,148 @@
 
-import hikari
-import pandas as pd
-import lightbulb
-import os
-import datetime
+# # import hikari
+# import pandas as pd 
+# import numpy as np
+# from time import sleep 
+# # import lightbulb
+# import os
+# import datetime 
+# import openpyxl 
+# # from apscheduler.schedulers.asyncio import AsyncIOScheduler
+# # from apscheduler.triggers.cron import CronTrigger
+# # from discord.ext import commands
+# import discord
 
-#gets the current date and time and formats them into string
-# time_hour=datetime.now()
-# day=time_hour.strftime("%A")
-# time=datetime.isoformat(time_hour)[11:19] 
-now = datetime.now()
-current_time = now.strftime("%H") 
-#print("Current Time =", current_time)
-Day=datetime.today().strftime('%A')
+# df=pd.read_excel('/Users/apple/Desktop/Menu-Bot/bot/Menu.xlsx') 
 
-df=pd.read_excel('Menu.xlsx')
-#print(df.head())
-File = open('/Users/apple/Desktop/code/Baka Bot/bot/token','r')
-T=File.readline()
-#print (T)
+# def processEXCEL(df):
+#     df.drop(df.index[0], inplace = True)
+#     days_index = []
+#     cnt= 0
+#     for i in df['Day']:
+#         if(not pd.isnull(i)):
+#             days_index.append(cnt)
+#         cnt+=1
+#     days_index.append(df.index[-1])
 
-baka=lightbulb.BotApp(
-    token= T,
-#token=Token,
-#only for the menu server makes the bot faster 
-default_enabled_guilds=(952510854899834930)
-)
+#     menu = {}
+#     for day in range(len(days_index)-1):
+#         roju = []
+#         for meal in df.columns[1:]:
+#             puta= []
+#             for food in df[meal].iloc[days_index[day]:days_index[day+1]]:
+#                 if(not pd.isnull(food)):
+#                     puta.append(food)
+#             roju.append(puta)
+#         menu[day] = roju
+#     return menu
 
-@baka.listen(hikari.GuildMessageCreateEvent)
-#function header 
-async def print_message(event):
-    #function used to just print the message
-    #  whatever typed on discord 
+# days={
+#     "Monday": 0,
+#     "Tuesday": 1,
+#     "Wednesday": 2,
+#     "Thursday": 3,
+#     "Friday": 4,
+#     "Saturday": 5,
+#     "Sunday": 6,
+# }
+# meals={
+#     "BREAKFAST": 0,
+#     "LUNCH": 1,
+#     "DINNER": 2,
+#     "SNACKS": 3,
+# }
 
-    print(event.content)
+# menu = processEXCEL(df)
 
-#event to tell me the bots running 
-@baka.listen(hikari.StartedEvent)
-async def bot_started(event):
-    print("Baka is alive , up and running")
+# File = open('/Users/apple/Desktop/code/Baka Bot/bot/token','r')
+# T=File.readline()
 
-@baka.command
-@lightbulb.command('bakayaro','Konoyaro')
-@lightbulb.implements(lightbulb.SlashCommand)
-async def ping(ctx):
-    await ctx.respond('Konoyaro')
 
-#making a subgroup of commands 
-@baka.command
-@lightbulb.command('akastuki','this is a group')
-@lightbulb.implements(lightbulb.SlashCommandGroup)
-async def itachi(ctx):
-    pass #Pass implies the function does nothing 
+# baka=lightbulb.BotApp(
+#     token= T,
+# # only for the menu server makes the bot faster 
+# default_enabled_guilds=(952510854899834930)
+# )
 
-#this is a sub command of the group command akastuki
-@itachi.child
-@lightbulb.command('itachi','do you know what mangekyo sharingan can do?')
-@lightbulb.implements(lightbulb.SlashSubCommand)
-async def sub_command(ctx):
-    await ctx.respond('Amaterasu')
+# # @baka.listen(hikari.GuildMessageCreateEvent)
+# # async def print_message(event):
+# #        function used to just print the message
+# #      whatever typed on discord 
+# #     print(event.content)
 
-@baka.command
-@lightbulb.option('num2','this is first number',type=int)
-@lightbulb.option('num1','this is second number',type=int)
-#taking in 2 numbers to add and the options must be above thelight bulb command 
-#and underneath the baka.command 
-@lightbulb.command('add','adds two numbers')
-@lightbulb.implements(lightbulb.SlashCommand)
-async def add(ctx):
-    await ctx.respond(ctx.options.num1 + ctx.options.num2)
+# #event to tell me the bots running 
+# @baka.listen(hikari.StartedEvent)
+# async def bot_started(event):
+#     print("Baka is alive , up and running")
 
-#for pinging everyone so that they can get the notification'''
-@baka.listen()
-async def ping(event: hikari.GuildMessageCreateEvent) -> None:
-    if event.is_bot or not event.content:
-        return
+# # @baka.command
+# # @lightbulb.command('bakayaro','Konoyaro')
+# # @lightbulb.implements(lightbulb.SlashCommand)
+# # async def ping(ctx):
+# #     await ctx.respond('Konoyaro')
 
-    if event.content.startswith("menu?"):
-        await event.message.respond("https://cdn.discordapp.com/attachments/952512991717384303/968954395200987206/full_menu.png")
+# #for pinging everyone so that they can get the notification
+# # @baka.listen()
+# # async def ping(event: hikari.GuildMessageCreateEvent) -> None:
+# #     if event.is_bot or not event.content:
+# #         return
+
+# #     if event.content.startswith("menu?"):
+# #         await event.message.respond("https://cdn.discordapp.com/attachments/952512991717384303/968954395200987206/full_menu.png")
+
+
+
+# # async def func():
+# #     c = bot.get_channel(channel_id)
+# #     await c.send("s!t")
+
+# # @bot.event
+# # async def on_ready():
+# #     print("Ready")
+
+# #     #initializing scheduler
+# #     scheduler = AsyncIOScheduler()
+
+# #     #sends "s!t" to the channel when time hits 10/20/30/40/50/60 seconds, like 12:04:20 PM
+# #     scheduler.add_job(func, CronTrigger(second="0, 10, 20, 30, 40, 50")) 
+
+# #     #starting the scheduler
+# #     scheduler.start()
+
+           
+# DAY = datetime.datetime.today().strftime('%A')
+
+# @bot.event
+# async def on_message(message):
+#     if message.author == bot.user:
+#         return
+
+#     if message.content.startswith('$hello'):
+#         await message.channel.send('Hello!')
+
+# @bot.event
+# async def on_ready():
+#     while True:
+
+#         sleep(1800)
+#         HOUR = (datetime.datetime.now().hour)*100 + (datetime.datetime.now().minute)
+
+#         if HOUR < 700 and HOUR > 630:
+#             MEAL = "BREAKFAST"
+#             print( menu[ days[DAY] ][meals[MEAL]]"@everyone" )
+#         elif HOUR < 1230 and HOUR > 1200:
+#             MEAL = "LUNCH"
+#             print( menu[ days[DAY] ][meals[MEAL]] "@everyone")
     
-    time_hour=datetime.now()
-    day=time_hour.strftime("%A")
-    time=datetime.isoformat(time_hour)[11:19]
+#         elif HOUR < 1600 and HOUR > 1530:
+#             MEAL = "SNACKS"
+#             print( menu[ days[DAY] ][meals[MEAL]] "@everyone")
     
-    while True:
-      a=datetime.now()  
-      actual_time=datetime.isoformat(a)[11:19]
-
-      if actual_time==bk:
-          
-
-        
-#time. sleep at that time => calculate how long it sleeps wakes up and 
-#sends a message 
-#iterate using iloc 
-#taking in the menu every week 
-
+#         elif HOUR < 1900 and HOUR > 1830:
+#             MEAL = "DINNER"
+#             print({menu[ days[DAY] ]}{[meals[MEAL]]} "@everyone" ) 
     
-baka.run() 
+    
+
+
+# baka.run("T")
